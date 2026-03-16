@@ -127,7 +127,7 @@ Divides indices 1..n into chunks of size √n. For each chunk, scans A rotating 
 
 There are √n chunks and each requires scanning all n elements of A, giving O(n√n) total operations. Average: ~3160 operations for 100 numbers.
 
-### Complex — O(n log n) — Greedy Cost (Turkish Algorithm)
+### Complex — O(n log n) — Greedy Cost
 
 Pushes all but 3 elements to B, sorts the remaining 3 in A with an optimal 3-element sort, then repeatedly inserts the cheapest element from B back into its correct position in A.
 
