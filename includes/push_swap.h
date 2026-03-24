@@ -122,4 +122,9 @@ void	error_exit(t_ctx *ctx);
 void	ctx_init(t_ctx *ctx);
 int		ft_strcmp(const char *a, const char *b);
 
+char	**ft_split(char *argv);
+int		ft_atoi_safe(const char *s, long *result);
+int		has_duplicate(t_stack *stack, int val);
+void	push_back(t_stack **stack, t_stack *node);
+
 #endif

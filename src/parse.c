@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static int	ft_atoi_safe(const char *s, long *result)
+int	ft_atoi_safe(const char *s, long *result)
 {
 	int		sign;
 	long	n;
@@ -39,7 +39,7 @@ static int	ft_atoi_safe(const char *s, long *result)
 	return (1);
 }
 
-static int	has_duplicate(t_stack *stack, int val)
+int	has_duplicate(t_stack *stack, int val)
 {
 	while (stack)
 	{

@@ -39,14 +39,22 @@ static void	wstr(const char *s, int fd)
 
 static void	print_strategy_line(int strategy, double disorder)
 {
+	if (strategy == STRAT_ADAPTIVE)
+		wstr("[bench] strategy:  Adaptive / ", 2);
+	else if (strategy == STRAT_SIMPLE)
+		wstr("[bench] strategy:  Simple / ", 2);
+	else if (strategy == STRAT_MEDIUM)
+		wstr("[bench] strategy:  Medium / ", 2);
+	else
+		wstr("[bench] strategy:  Complex / ", 2);
 	if (strategy == STRAT_SIMPLE
 		|| (strategy == STRAT_ADAPTIVE && disorder < 0.2))
-		wstr("[bench] strategy:  Simple / O(n^2)\n", 2);
+		wstr("O(n^2)\n", 2);
 	else if (strategy == STRAT_MEDIUM
 		|| (strategy == STRAT_ADAPTIVE && disorder < 0.5))
-		wstr("[bench] strategy:  Medium / O(n*sqrt(n))\n", 2);
+		wstr("O(n*sqrt(n))\n", 2);
 	else
-		wstr("[bench] strategy:  Complex / O(n log n)\n", 2);
+		wstr("O(n log n)\n", 2);
 }
 
 static void	print_op_counts(t_ops *ops)

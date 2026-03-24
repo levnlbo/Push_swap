@@ -38,28 +38,58 @@ static void	sort_by_size(t_ctx *ctx, double disorder)
 		run_strategy(ctx, disorder);
 }
 
+static void	process_split_array(t_ctx *ctx, char **split_arr)
+{
+	int		j;
+	long	val;
+	t_stack	*node;
+
+	j = 0;
+	while (split_arr[j])
+	{
+		if (!ft_atoi_safe(split_arr[j], &val)
+			|| has_duplicate(ctx->a, (int)val))
+		{
+			while (split_arr[j])
+				free(split_arr[j++]);
+			free(split_arr);
+			error_exit(ctx);
+		}
+		node = new_node((int)val);
+		if (!node)
+			error_exit(ctx);
+		push_back(&ctx->a, node);
+		free(split_arr[j]);
+		j++;
+	}
+	free(split_arr);
+}
+
 int	main(int argc, char **argv)
 {
 	t_ctx	ctx;
 	int		arg_start;
 	double	disorder;
+	char	**split_arr;
 
 	if (argc < 2)
 		return (0);
 	ctx_init(&ctx);
 	arg_start = parse_flags(argc, argv, &ctx.bench, &ctx.strategy);
-	if (arg_start >= argc)
-		return (0);
-	ctx.a = parse_args(argc - arg_start + 1, argv + arg_start - 1);
+	while (arg_start < argc)
+	{
+		split_arr = ft_split(argv[arg_start++]);
+		if (!split_arr)
+			error_exit(&ctx);
+		process_split_array(&ctx, split_arr);
+	}
 	if (!ctx.a)
-		error_exit(&ctx);
+		return (0);
 	assign_index(ctx.a, stack_size(ctx.a));
 	disorder = compute_disorder(ctx.a);
 	if (!is_sorted(ctx.a))
 		sort_by_size(&ctx, disorder);
 	if (ctx.bench)
 		print_bench(&ctx, disorder, ctx.strategy);
-	free_stack(&ctx.a);
-	free_stack(&ctx.b);
-	return (0);
+	return (free_stack(&ctx.a), free_stack(&ctx.b), 0);
 }

@@ -19,7 +19,9 @@ SRCS	= src/main.c \
 		  src/sort_complex2.c \
 		  src/sort_adaptive.c \
 		  src/bench.c \
-		  src/error.c
+		  src/error.c \
+		  src/ft_split.c \
+		  src/stack_utils2.c
 
 OBJS	= $(SRCS:.c=.o)
 

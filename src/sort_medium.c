@@ -54,12 +54,20 @@ static void	push_all_chunks(t_ctx *ctx, int n)
 static void	pull_back(t_ctx *ctx)
 {
 	int	max;
+	int	pos;
+	int	size;
 
 	while (ctx->b)
 	{
 		max = find_max_index(ctx->b);
-		while (ctx->b->index != max)
-			rb(ctx);
+		pos = get_position(ctx->b, max);
+		size = stack_size(ctx->b);
+		if (pos <= size / 2)
+			while (ctx->b->index != max)
+				rb(ctx);
+		else
+			while (ctx->b->index != max)
+				rrb(ctx);
 		pa(ctx);
 	}
 }
